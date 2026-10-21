@@ -1,8 +1,15 @@
+accelerate>=0.26.0
+datasets>=2.14.0
 google-genai==2.29.0
 groq==1.7.0
 numpy==2.5.4
 pandas==3.0.6
+peft==0.15.2
 pyarrow==26.0.0
 pydantic==2.14.1
 python-dotenv==1.2.4
+pyyaml>=6.0
 scikit-learn==1.9.1
+scipy>=1.10
+torch>=2.2
+transformers==4.56.2
