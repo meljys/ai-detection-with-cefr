@@ -1,0 +1,14 @@
+{
+  "config": "final_lora_seed2",
+  "trainable_params": 817928,
+  "epochs": 10,
+  "best_epoch": 8,
+  "train_time_s": 134.0,
+  "peak_gpu_mem_gb": 1.73,
+  "val_macro_f1": 0.5061638367598454,
+  "val_ai_auroc": 0.9992266992266992,
+  "val_cefr_within1": 0.8424908424908425,
+  "test_macro_f1": 0.5268973476121983,
+  "test_ai_auroc": 0.9997829331162664,
+  "platform": "Windows-11-10.0.26200-SP0"
+}

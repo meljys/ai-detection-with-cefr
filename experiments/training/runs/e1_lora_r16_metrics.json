@@ -1,0 +1,13 @@
+{
+  "config": "e1_lora_r16",
+  "trainable_params": 1039112,
+  "epochs": 3,
+  "best_epoch": 3,
+  "train_time_s": 102.0,
+  "peak_gpu_mem_gb": null,
+  "val_macro_f1": 0.3565215627232158,
+  "val_ai_auroc": 0.8930945597612265,
+  "test_macro_f1": 0.38272294055142264,
+  "test_ai_auroc": 0.9039614706281373,
+  "platform": "Google Colab, Tesla T4 (recorded from the Colab run)"
+}

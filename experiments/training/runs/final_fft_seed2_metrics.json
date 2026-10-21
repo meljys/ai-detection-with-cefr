@@ -1,0 +1,14 @@
+{
+  "config": "final_fft_seed2",
+  "trainable_params": 66959624,
+  "epochs": 4,
+  "best_epoch": 4,
+  "train_time_s": 58.7,
+  "peak_gpu_mem_gb": 2.78,
+  "val_macro_f1": 0.5050694016998021,
+  "val_ai_auroc": 0.9997693664360331,
+  "val_cefr_within1": 0.8406593406593407,
+  "test_macro_f1": 0.5413111209898029,
+  "test_ai_auroc": 0.9991859991859992,
+  "platform": "Windows-11-10.0.26200-SP0"
+}
