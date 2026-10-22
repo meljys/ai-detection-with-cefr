@@ -1,0 +1,19 @@
+{
+  "model": "ahmediqbal/ai-text-detector-model",
+  "split": "test_heldout_generator",
+  "n_human": 0,
+  "n_ai": 135,
+  "ai_recall": 0.7333333333333333,
+  "fpr_by_cefr": null,
+  "fpr_max_minus_min": null,
+  "ai_confusion_matrix": [
+    [
+      0,
+      0
+    ],
+    [
+      36,
+      99
+    ]
+  ]
+}

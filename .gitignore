@@ -226,3 +226,25 @@ __marimo__/
 data/raw/
 data/interim/
 data/cache
+# Trained models (too large for GitHub), except the final LoRA adapter (about 4 MB),
+# which calibration, the backend and Docker load from the repo
+models/*
+!models/e3_lora_r8_lr5e-4/
+# ...apart from the template model card PEFT writes there
+models/e3_lora_r8_lr5e-4/README.md
+
+# Personal editor settings (contain local paths)
+.vscode/
+
+# Local backups
+training/*_backup_*.ipynb
+experiments/training/results_backup_*.xlsx
+
+# Office lock files (exist while a document is open)
+~$*
+
+# Results of earlier exploratory runs, kept locally (not part of the reported series)
+experiments/training/archive/
+
+# Smoke-test output (a pipeline check, not a result)
+experiments/training/runs/smoke_*

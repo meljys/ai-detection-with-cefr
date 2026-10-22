@@ -1,0 +1,158 @@
+{
+  "ckpt": "C:\\NUS\\Y3S1\\DSA2111\\project\\ai-detection-with-cefr\\models\\e3_full_ft_lr1e-5",
+  "split": "test_heldout_generator",
+  "n_human": 0,
+  "n_ai": 135,
+  "macro_f1": 0.18988326848249026,
+  "ai_recall_argmax": 0.9037037037037037,
+  "ai_recall_prob": 0.8222222222222222,
+  "fpr_by_cefr_argmax": {
+    "A1": null,
+    "A2": null,
+    "B1": null,
+    "B2": null,
+    "C1": null,
+    "C2": null,
+    "native": null
+  },
+  "fpr_by_cefr_prob": {
+    "A1": null,
+    "A2": null,
+    "B1": null,
+    "B2": null,
+    "C1": null,
+    "C2": null,
+    "native": null
+  },
+  "fpr_gap_argmax": null,
+  "fpr_gap_prob": null,
+  "per_class_f1": {
+    "A1": 0.0,
+    "A2": 0.0,
+    "B1": 0.0,
+    "B2": 0.0,
+    "C1": 0.0,
+    "C2": 0.0,
+    "native": 0.0,
+    "ai": 0.9494163424124513
+  },
+  "cefr_exact": NaN,
+  "cefr_within1": NaN,
+  "cefr_mae": NaN,
+  "cefr_macro_f1": NaN,
+  "trainable_params": 66959624,
+  "train_time_s": 59.0,
+  "peak_gpu_mem_gb": 4.81,
+  "confusion_matrix": [
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      1,
+      4,
+      7,
+      122
+    ]
+  ],
+  "labels_order": [
+    "A1",
+    "A2",
+    "B1",
+    "B2",
+    "C1",
+    "C2",
+    "native",
+    "ai"
+  ],
+  "cefr_confusion_matrix": null,
+  "ai_confusion_matrix": [
+    [
+      0,
+      0
+    ],
+    [
+      24,
+      111
+    ]
+  ],
+  "cefr_labels_order": [
+    "A1",
+    "A2",
+    "B1",
+    "B2",
+    "C1",
+    "C2",
+    "native"
+  ]
+}

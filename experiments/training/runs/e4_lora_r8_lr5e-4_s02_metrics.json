@@ -1,0 +1,14 @@
+{
+  "config": "e4_lora_r8_lr5e-4_s02",
+  "trainable_params": 817928,
+  "epochs": 10,
+  "best_epoch": 10,
+  "train_time_s": 133.9,
+  "peak_gpu_mem_gb": 1.72,
+  "val_macro_f1": 0.4958383375231782,
+  "val_ai_auroc": 0.9997557997557998,
+  "val_cefr_within1": 0.8424908424908425,
+  "test_macro_f1": 0.5150642284372449,
+  "test_ai_auroc": 0.9996608329941664,
+  "platform": "Windows-11-10.0.26200-SP0"
+}
