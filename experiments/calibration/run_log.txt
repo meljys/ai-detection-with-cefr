@@ -1,0 +1,45 @@
+[val] using saved probabilities
+[test] using saved probabilities
+[test_heldout_generator] using saved probabilities
+CHECK (test, p_ai>0.5): human ok 542 / flagged 4; AI missed 1 / caught 134
+(training stats: human 542 / ai 1 / 134)
+
+LEVEL ESTIMATOR (test):  {'exact': 0.4413919413919414, 'within_one_level': 0.8717948717948718, 'mean_levels_off': 0.7216117216117216, 'exact_band': 0.6904761904761905} 
+
+===================
+MAIN THRESHOLDS:  {'A1': 0.5, 'A2': 0.5, 'B1': 0.5, 'B2': 0.5, 'C1': 0.5, 'C2': 0.5, 'native': 0.5} 
+
+ level   n  flagged_before  fpr_before  ci_low_before  ci_high_before  flagged_after  fpr_after  ci_low_after  ci_high_after
+    A1  40               0       0.000          0.000           0.088              0      0.000         0.000          0.088
+    A2  84               1       0.012          0.002           0.064              1      0.012         0.002          0.064
+    B1 108               0       0.000          0.000           0.034              0      0.000         0.000          0.034
+    B2 138               1       0.007          0.001           0.040              1      0.007         0.001          0.040
+    C1 107               0       0.000          0.000           0.035              0      0.000         0.000          0.035
+    C2  42               2       0.048          0.013           0.158              2      0.048         0.013          0.158
+native  27               0       0.000          0.000           0.125              0      0.000         0.000          0.125 
+
+fairness gap before:  {'gap': 0.047619047619047616, 'ci95': (0.007931893687707641, 0.12195121951219512)}
+fairness gap after:  {'gap': 0.047619047619047616, 'ci95': (0.007931893687707641, 0.12195121951219512)} 
+
+overall before:  {'precision': 0.9710144927536232, 'recall': 0.9925925925925926, 'f1': 0.9816849816849818, 'auroc': 0.9996201329534663} 
+
+overall after:  {'precision': 0.9710144927536232, 'recall': 0.9925925925925926, 'f1': 0.9816849816849818, 'auroc': 0.9996201329534663} 
+
+AI recall after:
+  group   n  recall
+ all AI 135   0.993
+learner  63   0.984
+ native  72   1.000 
+
+ALL EXPERIMENTS: 
+                experiment  humans_flagged_before  humans_flagged_after  gap_before  gap_after  gap_after_true_levels  ai_recall_before  ai_recall_after  heldout_recall_before  heldout_recall_after
+main: per-level, target 5%                      4                     4      0.0476     0.0476                 0.0476            0.9926           0.9926                 0.9704                0.9704
+       per-band, target 5%                      4                     4      0.0476     0.0476                 0.0476            0.9926           0.9926                 0.9704                0.9704
+      per-level, target 1%                      4                     4      0.0476     0.0476                 0.0476            0.9926           0.9926                 0.9704                0.9704
+     per-level, target 10%                      4                     4      0.0476     0.0476                 0.0476            0.9926           0.9926                 0.9704                0.9704
+
+                experiment                                                                          thresholds
+main: per-level, target 5%   {'A1': 0.5, 'A2': 0.5, 'B1': 0.5, 'B2': 0.5, 'C1': 0.5, 'C2': 0.5, 'native': 0.5}
+       per-band, target 5%                                               {'high': 0.5, 'low': 0.5, 'mid': 0.5}
+      per-level, target 1% {'A1': 0.5, 'A2': 0.5, 'B1': 0.934, 'B2': 0.5, 'C1': 0.5, 'C2': 0.5, 'native': 0.5}
+     per-level, target 10%   {'A1': 0.5, 'A2': 0.5, 'B1': 0.5, 'B2': 0.5, 'C1': 0.5, 'C2': 0.5, 'native': 0.5}

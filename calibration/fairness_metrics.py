@@ -24,7 +24,7 @@ def wilson_ci(k, n, z=1.96):
         return np.nan, np.nan
     p = k/n
     denom = 1 + z**2 /n
-    centre = (p + z*2 / (2*n)) /denom
+    centre = (p + z**2 / (2*n)) /denom
     half = z * np.sqrt(p* (1-p) / n + z**2 / (4 * n**2 )) / denom
     return min(max(0.0, centre - half), p), max(min(1.0, centre+half), p)
 
@@ -37,7 +37,7 @@ def per_level_fpr(labels, flagged):
         rows.append({"level": level,
                      "n": n,
                      "flagged": k,
-                     "fpr": k/n if n else np.nan,,
+                     "fpr": k/n if n else np.nan,
                      "ci_low": lo,
                      "ci_high": hi})
 
@@ -83,7 +83,7 @@ def fairness_gap(labels, flagged, n_boot=1000, seed=0):
 
 def overall(labels, flagged, p_ai):
     ai = labels == AI_ID
-    tp, fp = (flagged & ai).sum(), (flagged & -ai).sum()
+    tp, fp = (flagged & ai).sum(), (flagged & ~ai).sum()
     precision = tp / max(tp+fp, 1)
     recall = tp / ai.sum()
     return {"precision": float(precision), "recall": float(recall),
@@ -94,7 +94,7 @@ def fpr_vs_threshold(labels, p_ai, ts=np.linspace(0.05, 0.99, 95)):
     # at each possible threshold, what share is flagged?
     out = {"threshold": ts}
     for level in CEFR_ORDER:
-        s = p_ai[LABELS == LABELS.index(level)]
+        s = p_ai[labels == LABELS.index(level)]
         out[level] = [(s>=t).mean() for t in ts]
     out["AI recall"] = [(p_ai[labels == AI_ID] >= t).mean() for t in ts]
     return pd.DataFrame(out)

@@ -24,9 +24,9 @@ PROBS = OUT / "probs" #saved model outputs (cache)
 
 # (name, grouping, target fpr)
 EXPERIMENTS = [
-    ("main: per-level, target5%", "level", 0.05),
+    ("main: per-level, target 5%", "level", 0.05),
     ("per-band, target 5%", "band", 0.05),
-    ("per-level, target 5%", "level", 0.01),
+    ("per-level, target 1%", "level", 0.01),
     ("per-level, target 10%", "level", 0.10)
 ]
 
@@ -36,7 +36,7 @@ def run_model(texts, ckpt, chunk=64):
     from training.inference import predict_probs
     parts =[]
     for i in tqdm(range(0, len(texts), chunk, desc="running model", unit="chunk")):
-        parts.append(predict_probs(texts[i:i+chunk], chkpt))
+        parts.append(predict_probs(texts[i:i+chunk], ckpt, batch_size=4))
     return np.vstack(parts)
 
 def get_probs(split, texts):
@@ -46,7 +46,7 @@ def get_probs(split, texts):
         return np.load(f)
     from training.config import FINAL_MODEL, MODELS_DIR
     from training.inference import predict_probs #run model
-    probs = predict_probs(texts, str(MODELS_DIR/FINAL_MODEL))
+    probs = predict_probs(texts, str(MODELS_DIR/FINAL_MODEL), batch_size=4)
     PROBS.mkdir(parents=True, exist_ok=True)
     np.save(f, probs)
     return probs
@@ -79,39 +79,54 @@ def plot_fpr(before, after, path):
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
     x, w = np.arange(len(before)), 0.38
-    fig, ax = plt.subplots(figsize=(7.5,4))\
-    
-    for k, (df, lab) in enumerate([(before, "before: one threshold (0.5)"),
-                                   (after, "after: calibrated thresholds")]):
+    fig, ax = plt.subplots(figsize=(8, 4.5))
+    for k, (df, lab) in enumerate([(before, "Before: one threshold (0.5)"),
+                                   (after, "After: calibrated thresholds")]):
         err = [(df["fpr"] - df["ci_low"]).to_numpy(),
-               (df["ci_high"] - df["fpr"]).to_numpy()
-               ]
-        ax.bar(x + (k-0.5) * w, df["fpr"], w, yerr=err, capsize=3, label=lab)
-
+               (df["ci_high"] - df["fpr"]).to_numpy()]
+        xs = x + (k - 0.5) * w
+        ax.bar(xs, df["fpr"], w, yerr=err, capsize=3, label=lab)
+        for xi, (_, r) in zip(xs, df.iterrows()):
+            ax.text(xi, r["ci_high"] + 0.002, f"{int(r['flagged'])}/{int(r['n'])}",
+                    ha="center", va="bottom", fontsize=7)
     ax.set_xticks(x)
     ax.set_xticklabels(before["level"])
-    ax.set_ylabel("False positive rate (human written texts flagged as AI)")
-    ax.set_xlabel("Writer's true level (bars: 95% interval)")
-    ax.legend()
+    ax.set_ylabel("False positive rate (human texts)")
+    ax.set_xlabel("Writer's true level (bars: 95% interval; labels: flagged/total)")
+    ax.set_ylim(0, before["ci_high"].max() * 1.15)
+    ax.legend(loc="upper left")
     fig.tight_layout()
     fig.savefig(path, dpi=200)
+    plt.close(fig)
 
 def plot_tradeoff(curve, path):
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
-    fig, ax = plt.subplots(figsize=(7.5,4))
-
+    ts = curve["threshold"].to_numpy()
+    j = int(np.abs(ts - 0.5).argmin())
+    fig, (top, bot) = plt.subplots(2, 1, sharex=True, figsize=(8, 6),
+                                   gridspec_kw={"height_ratios": [1, 1.3]})
+    rec = curve["AI recall"].to_numpy()
+    top.plot(ts, rec, "k--", lw=2)
+    top.axvline(0.5, color="grey", ls=":")
+    top.set_ylim(0.7, 1.02)
+    top.set_ylabel("AI recall")
+    top.annotate(f"{rec[j]:.3f} at 0.5", (0.5, rec[j]), xytext=(0.58, rec[j] - 0.1),
+                 arrowprops=dict(arrowstyle="->"))
     for level in CEFR_ORDER:
-        ax.plot(curve["threshold"], curve[level], lw=1, label = level)
-    ax.plot(curve["threshold"], curve["AI recall"], "k--", lw=2, label="AI recall")
-
-    ax.axvline(0.5, color="grey", ls=":")
-    ax.set_xlabel("Threshold on p(AI)")
-    ax.set_ylabel("Share of texts flagged")
-    ax.legend(ncol = 2, fontsize=8)
+        bot.plot(ts, curve[level], lw=1.2, label=level)
+    bot.axvline(0.5, color="grey", ls=":")
+    bot.set_ylim(-0.003, 0.085)
+    bot.set_ylabel("Human texts flagged (FPR)")
+    bot.set_xlabel("Threshold on p(AI)")
+    c2 = curve["C2"].to_numpy()[j]
+    bot.annotate(f"C2: {c2:.3f} at 0.5", (0.5, c2), xytext=(0.58, c2 + 0.02),
+                 arrowprops=dict(arrowstyle="->"))
+    bot.legend(ncol=4, fontsize=8, loc="center right")
     fig.tight_layout()
     fig.savefig(path, dpi=200)
+    plt.close(fig)
 
 def plot_thresholds(thr, path):
     import matplotlib
@@ -129,7 +144,7 @@ def plot_thresholds(thr, path):
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     val = pd.read_parquet(PROC/"val.parquet")
-    test = pd.read_parquet(PROC/"text.parquet")
+    test = pd.read_parquet(PROC/"test.parquet")
     held = pd.read_parquet(PROC/"test_heldout_generator.parquet")
     yv, yt = val["label"].to_numpy(), test["label"].to_numpy()
     pv = get_probs("val", val["text"].tolist())
@@ -149,7 +164,7 @@ def main():
     for i, (name, grouping, target) in enumerate(EXPERIMENTS):
         thr, f_est, f_true, f_held = run_one(grouping, target, pv, yv, pt, yt, ph)
         rows.append({
-            "experient": name,
+            "experiment": name,
             "thresholds": str({k: round(v,3) for k,v in thr.items()}),
             "humans_flagged_before": int(base[hum].sum()),
             "humans_flagged_after": int(f_est[hum].sum()),

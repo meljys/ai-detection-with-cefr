@@ -35,7 +35,7 @@ def estimate_cefr(probs):
     # position of the biggest of the 7 human numbers
     return np.array(HUMAN_LEVELS)[human_probs(probs).argmax(axis=1)]
 
-def estimate_cefr_document(probs):
+def estimate_cefr_document(chunk_probs):
     # average the whole document chunks first, then pick one CEFR level
     return np.array(HUMAN_LEVELS)[int(human_probs(chunk_probs).mean(axis=0).argmax())]
 
@@ -50,7 +50,7 @@ def estimator_accuracy(probs, true_labels):
     pred = estimate_cefr(probs[mask]) # guess levels
     true = np.array(LABELS)[true_labels[mask]] # true levels
     diff = np.abs(np.array([RANK[p] for p in pred]) - np.array([RANK[t] for t in true]))
-    brand_ok = to_group(pred, "band") == to_group(true, "band")
+    band_ok = to_group(pred, "band") == to_group(true, "band")
     return {"exact": float((diff==0).mean()),
             "within_one_level": float((diff<=1).mean()),
             "mean_levels_off": float(diff.mean()),
