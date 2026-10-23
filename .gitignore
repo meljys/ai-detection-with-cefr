@@ -248,3 +248,4 @@ experiments/training/archive/
 
 # Smoke-test output (a pipeline check, not a result)
 experiments/training/runs/smoke_*
+".Rhistory" 
