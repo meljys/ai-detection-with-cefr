@@ -21,6 +21,7 @@ Raw COREFL files (`data/raw/`), intermediate files (`data/interim/`) and the AI 
 | `data/corefl_loader.py` | Loads and cleans COREFL -> `data/interim/corefl_clean.parquet` |
 | `data/generate_ai_text.py` | Generates AI texts -> `data/interim/ai_texts.parquet` |
 | `data/build_splits.py` | Combines human + AI texts and builds the splits -> `data/processed/` |
+| `data/eda.py` | Descriptive statistics and figures for the processed splits -> `reports/eda/` |
 
 ## 3. Columns
 
@@ -140,7 +141,7 @@ Shares of the main data (excluding the held-out set): train 0.70, val 0.15, test
 ## 7. Limitations
 
 **Human data**
-- Learner L1 is ~75% Spanish; results may not generalise to other L1s.
+- Learner L1 is ~75% Spanish, and L1 is linked to level (almost all A1 texts are Spanish; German writers are mostly C1–C2); results may not generalise to other L1s.
 - Natives are the smallest class (187 texts); consider class weights in training.
 - Task and level are linked (A1 is mostly Frog; B2/C1 mostly Film and Chaplin), so a model may partly learn task as a proxy for level.
 - Writer IDs are derived from filenames, not true participant IDs.
@@ -149,6 +150,8 @@ Shares of the main data (excluding the held-out set): train 0.70, val 0.15, test
 - Frog and Chaplin texts were generated from written summaries, not the original pictures or video.
 - AI texts were initially found to echo distinctive vocabulary from the prompts. After the summaries were rewritten, some vocabulary differences remain, partly because the original book and film are likely in the models' training data, e.g. "owl" appears in 41% of AI Frog texts against 1% of human texts, and "tramp" in 25% of AI Chaplin texts against 1%.
 - Learner-style AI texts approximate CEFR levels but contain fewer and more uniform errors than real learner writing.
+- AI texts' vocabulary variety (type-token ratio) is more uniform from text to text than human texts' at every generated level, most clearly for native-style AI. AI texts prompted as native writers or C1 learners also have higher vocabulary variety than human texts at those levels (median 0.84 vs 0.74 for native, 0.84 vs 0.78 for C1), so vocabulary alone partly separates them; learner-style AI at A2–B2 is close to human writing (medians within 0.02).
+- AI target lengths were sampled from human texts on the same task across all levels, so learner-style AI texts are longer than real A2 and B1 texts, and native-style AI texts are shorter than real native texts.
 - Only two training generators from two companies; detection of other generators is tested on one held-out model only.
 - Free-tier models and versions available in October 2026; outputs may not be reproducible exactly if models change.
 
@@ -163,6 +166,7 @@ python -m data.generate_ai_text --models gpt-oss
 python -m data.generate_ai_text --models gemini
 python -m data.generate_ai_text --combine        # -> data/interim/ai_texts.parquet
 python -m data.build_splits                      # -> data/processed/*.parquet
+python -m data.eda                               # -> reports/eda/ (tables and figures)
 ```
 
 Generation resumes from the cache after interruptions or rate limits.
