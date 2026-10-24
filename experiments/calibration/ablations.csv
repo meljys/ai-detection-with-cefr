@@ -1,0 +1,5 @@
+experiment,thresholds,humans_flagged_before,humans_flagged_after,gap_before,gap_after,gap_after_true_levels,ai_recall_before,ai_recall_after,heldout_recall_before,heldout_recall_after
+"main: per-level, target 5%","{'A1': 0.5, 'A2': 0.5, 'B1': 0.5, 'B2': 0.5, 'C1': 0.5, 'C2': 0.5, 'native': 0.5}",4,4,0.0476,0.0476,0.0476,0.9926,0.9926,0.9704,0.9704
+"per-band, target 5%","{'high': 0.5, 'low': 0.5, 'mid': 0.5}",4,4,0.0476,0.0476,0.0476,0.9926,0.9926,0.9704,0.9704
+"per-level, target 1%","{'A1': 0.5, 'A2': 0.5, 'B1': 0.934, 'B2': 0.5, 'C1': 0.5, 'C2': 0.5, 'native': 0.5}",4,4,0.0476,0.0476,0.0476,0.9926,0.9926,0.9704,0.9704
+"per-level, target 10%","{'A1': 0.5, 'A2': 0.5, 'B1': 0.5, 'B2': 0.5, 'C1': 0.5, 'C2': 0.5, 'native': 0.5}",4,4,0.0476,0.0476,0.0476,0.9926,0.9926,0.9704,0.9704

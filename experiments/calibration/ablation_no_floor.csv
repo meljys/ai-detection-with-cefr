@@ -1,0 +1,4 @@
+experiment,thresholds,humans_flagged,human_fpr,gap,worst_level,worst_fpr,ai_recall,heldout_recall
+"floor 0.5, target 5%","{'A1': 0.5, 'A2': 0.5, 'B1': 0.5, 'B2': 0.5, 'C1': 0.5, 'C2': 0.5, 'native': 0.5}",4,0.0073,0.0476,C2,0.0476,0.9926,0.9704
+"no floor, target 5%","{'A1': 0.003, 'A2': 0.008, 'B1': 0.01, 'B2': 0.009, 'C1': 0.033, 'C2': 0.095, 'native': 0.138}",24,0.044,0.0648,B1,0.0648,1.0,1.0
+"no floor, target 10%","{'A1': 0.001, 'A2': 0.002, 'B1': 0.005, 'B2': 0.003, 'C1': 0.003, 'C2': 0.015, 'native': 0.049}",50,0.0916,0.1046,B1,0.1296,1.0,1.0
