@@ -249,3 +249,6 @@ experiments/training/archive/
 # Smoke-test output (a pipeline check, not a result)
 experiments/training/runs/smoke_*
 ".Rhistory" 
+
+# Added exclusion for test files since they contain copywrited works
+backend/test_files
