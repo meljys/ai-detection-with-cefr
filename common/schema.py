@@ -57,6 +57,8 @@ class TextRequest(BaseModel):
 
 class ChunkResult(BaseModel):
     text: str
+    start_idx: int         # index of the chunk's first sentence
+    end_idx: int           # index of the chunk's last sentence (inclusive)
     p_ai_raw: float        # softmax prob of "ai" class
     p_ai_calibrated: float # after CEFR calibration
     flagged: bool
