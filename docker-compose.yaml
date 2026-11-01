@@ -1,0 +1,52 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: docker/api.Dockerfile
+    image: fair-detection-api:latest
+    container_name: fair-detection-api
+    ports:
+      - "8000:8000"
+    environment:
+      DETECTOR_MODE: hf
+      MODEL_CKPT: /app/models/e3_lora_r8_lr5e-4
+      THRESHOLDS_PATH: /app/experiments/calibration/thresholds.json
+      CORS_ORIGINS: http://localhost:8501,http://ui:8501
+      MAX_UPLOAD_MB: "10"
+      MAX_TEXT_CHARS: "50000"
+      MIN_TEXT_WORDS: "20"
+    volumes:
+      - hf-cache:/root/.cache/huggingface
+      - torch-cache:/root/.cache/torch
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health')
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 180s
+    restart: unless-stopped
+
+  ui:
+    build:
+      context: .
+      dockerfile: docker/ui.Dockerfile
+    image: fair-detection-ui:latest
+    container_name: fair-detection-ui
+    ports:
+      - "8501:8501"
+    environment:
+      API_URL: http://api:8000
+      MAX_UPLOAD_MB: "10"
+      MIN_TEXT_WORDS: "20"
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  hf-cache:
+  torch-cache:

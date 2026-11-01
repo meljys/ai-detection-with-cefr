@@ -1,0 +1,33 @@
+# Version control and editor metadata
+.git
+.gitignore
+.gitattributes
+.vscode
+.idea
+
+# Python caches
+__pycache__
+*.pyc
+.pytest_cache
+.ruff_cache
+
+# Environments
+.venv
+venv
+env
+.env
+
+# Data that is either large or not needed at runtime
+data/raw
+data/interim
+data/cache
+experiments/training
+experiments/final
+experiments/calibration/probs
+reports
+notebooks
+
+# Tests and OS junk
+tests
+~$*
+.DS_Store
