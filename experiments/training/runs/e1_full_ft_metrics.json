@@ -1,0 +1,13 @@
+{
+  "config": "e1_full_ft",
+  "trainable_params": 66959624,
+  "epochs": 3,
+  "best_epoch": 3,
+  "train_time_s": 118.7,
+  "peak_gpu_mem_gb": null,
+  "val_macro_f1": 0.4288693772621993,
+  "val_ai_auroc": 0.9970424637091304,
+  "test_macro_f1": 0.4785422229546925,
+  "test_ai_auroc": 0.9984805318138652,
+  "platform": "Google Colab, Tesla T4 (recorded from the Colab run)"
+}

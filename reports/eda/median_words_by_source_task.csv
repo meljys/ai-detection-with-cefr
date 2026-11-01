@@ -1,0 +1,5 @@
+source_model,T13,T14,T3
+gemini-3.5-flash-lite,186.0,167.0,128.0
+human,142.0,193.0,114.0
+openai/gpt-oss-120b,154.0,184.0,123.5
+qwen/qwen3.8-27b,151.0,261.0,135.0

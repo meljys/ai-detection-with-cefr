@@ -1,0 +1,9 @@
+,human,human,human,ai_imitating,ai_imitating,ai_imitating
+,n,median_words,median_ttr,n,median_words,median_ttr
+A1,263,87.0,0.62,,,
+A2,563,110.0,0.7,106,143.0,0.72
+B1,714,136.0,0.74,112,166.5,0.76
+B2,922,155.0,0.76,101,162.0,0.78
+C1,711,182.0,0.78,94,164.0,0.84
+C2,278,211.5,0.76,,,
+native,187,194.0,0.74,622,150.0,0.84

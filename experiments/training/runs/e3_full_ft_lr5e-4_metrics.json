@@ -1,0 +1,14 @@
+{
+  "config": "e3_full_ft_lr5e-4",
+  "trainable_params": 66959624,
+  "epochs": 4,
+  "best_epoch": 4,
+  "train_time_s": 59.0,
+  "peak_gpu_mem_gb": 2.78,
+  "val_macro_f1": 0.3497670165978559,
+  "val_ai_auroc": 0.9773775607108941,
+  "val_cefr_within1": 0.7417582417582418,
+  "test_macro_f1": 0.41083171394766843,
+  "test_ai_auroc": 0.9921177587844254,
+  "platform": "Windows-11-10.0.26200-SP0"
+}
