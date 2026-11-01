@@ -1,0 +1,3 @@
+# Frog
+
+One day, a curious young boy discovered that his beloved pet frog had escaped from its jar. Accompanied by his loyal dog, he embarked on an adventurous search that took them from the familiar confines of their home into the mysterious depths of the forest. Along the way, they encountered a series of unexpected challenges: a swarm of angry bees, a startled owl, and a towering deer that inadvertently sent them tumbling into a nearby pond. It was there, amidst the ripples and lily pads, that they finally found the frog, happily reunited with its own family. The boy, moved by this heartwarming scene, decided to take one small frog home as a companion, a gentle reminder of the journey they had shared.
